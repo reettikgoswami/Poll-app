@@ -1,7 +1,26 @@
 import React from "react";
 import { Icon, Button } from "semantic-ui-react";
 
-function Header(props) {
+import authApi from "../../apis/auth";
+import { setToLocalStorage } from "../Utils/index";
+import { deleteAuthTokenFormHeader } from "../../apis/axios";
+
+function Header({ isUserLoggedIn }) {
+  const handleLogout = async e => {
+    try {
+      const response = await authApi.logout();
+      setToLocalStorage({
+        authToken: null,
+        authEmail: null,
+        authUserId: null,
+      });
+      deleteAuthTokenFormHeader();
+      // console.log(response.data.success);
+    } catch (error) {
+      // console.log(error.response.data.errors); //return an array
+    }
+  };
+
   return (
     <div className="h-16 w-3/4 mx-auto flex items-center justify-between">
       <div className="">
@@ -16,18 +35,28 @@ function Header(props) {
         <div className="mr-8">
           <button className="ui positive button">Create Poll</button>
         </div>
-
-        <div className="flex">
-          <a href="/login">
-            <Button basic color="teal" content="Login" />
-          </a>
-          {/* <a href="/">
-            <button className="ui primary button">Sign Up</button>
-          </a> */}
-          <a href="/signup">
-            <Button primary>Sign Up</Button>
-          </a>
-        </div>
+        {isUserLoggedIn ? (
+          <div className="flex">
+            <div>loggedIn</div>
+            {/* <a href="/"> */}
+            <Button
+              basic
+              color="teal"
+              content="Logout"
+              onClick={handleLogout}
+            />
+            {/* </a> */}
+          </div>
+        ) : (
+          <div className="flex">
+            <a href="/login">
+              <Button basic color="teal" content="Login" />
+            </a>
+            <a href="/signup">
+              <Button primary>Sign Up</Button>
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
