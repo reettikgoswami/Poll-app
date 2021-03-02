@@ -5,8 +5,12 @@ module.exports = {
   },
   purge: [],
   theme: {
-    extend: {},
+    extend: {
+      inset: {
+        "-4": "-1rem",
+      },
+    },
   },
   variants: {},
   plugins: [],
-}
+};
