@@ -10,6 +10,7 @@ import Login from "./auth/Login";
 import Header from "./layout/Header";
 import PollForm from "./components/Poll/PollForm";
 import Poll from "./components/Poll/Poll";
+import PollResult from "./components/Poll/PollResult";
 import { getFromLocalStorage } from "./Utils/index";
 import { setAuthHeaders } from "../apis/axios";
 
@@ -35,6 +36,12 @@ const App = () => {
           redirectRoute="/login"
           condition={isUserLoggedIn}
           component={Poll}
+        />
+        <PrivateRoute
+          path="/polls/:id/result"
+          redirectRoute="/login"
+          condition={isUserLoggedIn}
+          component={PollResult}
         />
         <PrivateRoute
           path="/polls/new"

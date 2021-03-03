@@ -1,5 +1,5 @@
 class PollsController < ApplicationController
-  before_action :authenticate_user_using_x_auth_token, only: :create 
+  before_action :authenticate_user_using_x_auth_token, only: [:create, :show] 
 
   def index
     @polls = Poll.all
@@ -21,13 +21,17 @@ class PollsController < ApplicationController
   def show
     @poll = Poll.find(params[:id])
     @options = @poll.options
-    render status: :ok, json: {poll: @poll, options: @options} 
+    render status: :ok, json: {poll: @poll, options: @options , already_attempted: already_voted?(@poll)} 
   end
 
   private
 
   def poll_params 
     params.require(:poll).permit(:title, options_attributes: [:value])  
+  end
+
+  def already_voted?(poll)
+    poll.voter_ids.include?(current_user.id)
   end
 
 end

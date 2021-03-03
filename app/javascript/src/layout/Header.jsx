@@ -33,7 +33,9 @@ function Header({ isUserLoggedIn }) {
       </div>
       <div className="flex ">
         <div className="mr-8">
-          <button className="ui positive button">Create Poll</button>
+          <a href="/polls/new">
+            <button className="ui positive button">Create Poll</button>
+          </a>
         </div>
         {isUserLoggedIn ? (
           <div className="flex">
