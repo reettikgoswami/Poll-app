@@ -1,7 +1,7 @@
 import React from "react";
 import { Segment, Label } from "semantic-ui-react";
 
-function Poll(props) {
+function PollCard({ question }) {
   return (
     <div className="mb-3">
       <Segment padded className="relative">
@@ -15,13 +15,11 @@ function Poll(props) {
             <Label as="a">Health Care</Label>
           </Label.Group>
         </div>
-        <div className="font-bold text-gray-600 text-3xl">
-          Are you a morning, evening or night person?
-        </div>
+        <div className="font-bold text-gray-600 text-3xl">{question}</div>
         <div className="text-base text-gray-500 pt-2">About 3 hour ago</div>
       </Segment>
     </div>
   );
 }
 
-export default Poll;
+export default PollCard;
