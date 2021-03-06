@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :polls, dependent: :destroy
+  has_many :votes, dependent: :destroy
   
   validates :email,presence: true ,format: {with: /\A\S+@.+\.\S+\z/ }, uniqueness: { case_sensitives: false }                
   validates :name, presence: true
